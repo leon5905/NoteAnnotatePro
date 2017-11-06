@@ -1,0 +1,38 @@
+{
+    
+      "manifest_version": 1,
+      "name": "Note Annotate",
+      "version": "1.0",
+    
+      "description": "Adds a red border to all webpages matching mozilla.org.",
+    
+      "icons": {
+        "48": "note icon.ico"
+      },
+    
+      "content_scripts": [
+        {
+          "matches": ["*://*.google.com/*"],
+          "js": ["demo.js"]
+        }
+      ],
+    
+      "browser_action": {
+        "browser_style": true,
+        "default_icon": {
+          "48": "note icon.ico",
+          "64": "note icon.ico"
+        },
+        "default_title": "Note Annotate",
+        "default_popup": "main.html"
+      },
+    
+      "applications": {
+        "gecko": {
+          "id": "himkeat@gmail.com",
+          "strict_min_version": "1.0"
+        }
+      },
+    
+      "permissions":["tabs","storage"]
+    }
