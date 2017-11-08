@@ -1,0 +1,10 @@
+html,body{height:100%;}
+
+.popup-body{
+    min-width:300px;
+    min-height: 400px;
+    font-family:Arial;
+    font-size:100%;
+    background:#ffc;
+    margin:1px;
+}
