@@ -1,16 +1,128 @@
 <html>
-    <head>
-        <script src="jquery-3.2.1.min.js"></script>
-        <script src="bootsrap.min.js"></script>
-        <link rel="stylesheet" href="/background.css"/>
-        <title>Notes Annotate</title>
+
+<head>
+    <link rel="stylesheet" href="background.css">
+    <link rel="stylesheet" href="/icon/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="/script/jquery-3.2.1.min.js"></script>
+    <script src="/script/main.js"></script>
+
+    <title>Notes Annotate</title>
 
     <body>
-        
-          
+        <div class="popup-content">
+            <div>
+                <!--Top Bar + Text Area-->
+                <div class="popup-setting-bar">
+                    <!--Top Bar-->
+                    <span id="popup-setting-bar-home" class="popup-setting-bar-home">
+                            <i class="fa fa-home"></i>
+                    </span>
+                    <span id="popup-setting-bar-input" class="popup-setting-bar-input">
+                        <input style="width:100%"></input>
+                    </span>
+                    <span id="popup-setting-bar-btn" class="popup-setting-bar-btn">
+                            <i class="fa fa-gear"></i>
+                    </span>
+                </div>
+                <div>
+                    <!--Text Area-->
+                    <textarea id="popup-text-area" class="popup-text-area" id="txt"></textarea>
+                </div>
+            </div>
+            <div class="popup-setting-main">
+                <!--Setting Windows-->
+                <!-- <div class="popup-setting">
+                    <div>
+                        <label>Change Font Size</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                    <div>
+                        <label>Change Text Color</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                    <div>
+                        <label>Change Background Color</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                    <div>
+                        <label>Change Text Style</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                    <div>
+                        <label>Export as.txt file</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
 
-        <textarea class="popup-body" id="txt">Welcome...Type Your Notes Here</textarea>
-     
-       
+                </div> -->
+
+
+                <!-- <div class="popup-fontsize">
+                        <div><label>Small</label> </div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        <div><label>Medium</label> </div> 
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>                   
+                        <div><label>Large</label> </div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        <div><label>Extra Large</label></div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        <div><label>Giant Large</label></div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        
+                 </div> -->
+
+                <!-- <div class="popup-textcolor">
+                        <div><label>Black</label> </div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        <div><label>Yellow</label> </div> 
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>                   
+                        <div><label>Red</label> </div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        <div><label>Blue</label></div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        <div><label>Green</label></div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        
+                 </div> -->
+
+                <!-- <div class="popup-backgroundcolor">
+                        <div><label>White</label> </div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        <div><label>Yellow</label> </div> 
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>                   
+                        <div><label>Red</label> </div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        <div><label>Blue</label></div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        <div><label>Green</label></div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        
+                 </div> -->
+
+                <!-- <div class="popup-textstyle">
+                        <div><label>Arial</label> </div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        <div><label>Kalam</label> </div> 
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>                   
+                        <div><label>Comic</label> </div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        <div><label>Helvetica</label></div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        <div><label>FreeStyle</label></div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        
+                 </div> -->
+
+                <!-- <div class="popup-export">
+                        <div><label>Notes.txt</label> </div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                        <div><label>Notes_(Date).txt</label> </div> 
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>                   
+                        <div><label>xxxx_(URL).txt</label> </div>
+                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+   
+                 </div> -->
+            </div>
+        </div>
     </body>
+
 </html>

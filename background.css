@@ -1,10 +1,106 @@
 html,body{height:100%;}
 
-.popup-body{
+.popup-text-area{
     min-width:300px;
     min-height: 400px;
     font-family:Arial;
     font-size:100%;
     background:#ffc;
-    margin:1px;
+    margin:5px;
+    
+}
+
+.popup-content{
+    min-width:310px;
+    min-height:410px;
+    font-family:Arial;
+    font-size:100%;
+    background:#ffc;
+    
+}
+
+.popup-setting-main{
+    display:absolute;
+    top:0;
+}
+
+.popup-setting{
+    display:block;
+    margin:25px;
+    width:60%;
+    height:100px;
+    background:white;
+    float:right;
+}
+
+.popup-setting-bar{
+    display:flex;
+    align-items: center;
+}
+
+.popup-setting-bar-input{
+    width:100%;
+}
+
+.popup-setting-bar-home{
+    display:block;
+    font-size:25px;
+    margin:4px;
+    width:25px;
+    height:25px;
+}
+
+.popup-setting-bar-btn{
+    display:block;
+    font-size:25px;
+    margin:4px;
+    width:25px;
+    height:25px;
+}
+
+.popup-fontsize{
+    display:block;
+    margin:25px;
+    width:60%;
+    height:100px;
+    background:white;
+}
+
+.popup-textcolor{
+    display:block;
+    margin:25px;
+    width:60%;
+    height:100px;
+    background:white;
+    float:right;
+
+}
+
+.popup-backgroundcolor{
+    display:block;
+    margin:25px;
+    width:60%;
+    height:100px;
+    background:white;
+    float:right;
+
+}
+
+.popup-textstyle{
+    display:block;
+    margin:25px;
+    width:60%;
+    height:100px;
+    background:white;
+    float:right;
+
+}
+.popup-export{
+    display:block;
+    margin:25px;
+    width:60%;
+    height:60px;
+    background:white;
+    float:right;
+
 }
