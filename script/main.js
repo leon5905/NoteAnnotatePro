@@ -19,96 +19,217 @@
 })(jQuery);
 
 $(document).ready(function(){
+    // console.log('ready');
     var queryBool = $.QueryString.home;
     if (queryBool){
         NoteAnnotatePro.home = true;
     }
 
-    $('#popup-setting-btn').click(function(){
+    var settingBtn = $('#popup-setting-bar-btn');
+    settingBtn.click(function(){
         //TODO 
-        //Open Setting Menu
+    });
+    settingBtn.hover(function () {
+        settingBtn.css('color','gainsboro');
+    }, function () {
+        settingBtn.css('color', 'whitesmoke');
+    });
+
+    var homeBtn = $('#popup-setting-bar-home');
+    homeBtn.click(function(){
+        //TODO open new window
+        var win = window.open();
+    });
+    homeBtn.hover(function () {
+        homeBtn.css('color','gainsboro');
+    }, function () {
+        homeBtn.css('color', 'whitesmoke');
+    });
+
+    var inputBtn = $('#popup-setting-bar-input2');
+    inputBtn.click(function(){
+        var targetStr= inputBtn.val();
+
+        if (targetStr.toLowerCase().trim().includes('local')){
+            inputBtn.val('  Global');
+            NoteAnnotatePro.noteLocal = false;
+            NoteAnnotatePro.editConfig(NoteAnnotatePro.noteLocal);
+        }
+        else{
+            inputBtn.val('  Local : ' + NoteAnnotatePro.currentURL);
+            NoteAnnotatePro.noteLocal = true;
+            NoteAnnotatePro.editConfig(NoteAnnotatePro.noteLocal);
+        }
+        //Unfocus
+        NoteAnnotatePro.manuallocalUpdate();
+        $('#popup-text-area').focus();
+    });
+    inputBtn.hover(function () {
+        inputBtn.css('background-color','gainsboro');
+    }, function () {
+        inputBtn.css('background-color', 'whitesmoke');
     });
 
     $('#popup-text-area').change(function(){
         //TODO unfinished
         var thisObj = $(this);
         var updatedValue = thisObj.val();
-        var index = thisObj.attr('data-index');
 
         //Save data on change
-        console.log('change');
+        if (NoteAnnotatePro.noteLocal){ //Local
+            NoteAnnotatePro.saveDataWithIndex(NoteAnnotatePro.currentURL,thisObj.val(),NoteAnnotatePro.defaultFontSize,NoteAnnotatePro.defaultTextColor,NoteAnnotatePro.defaultBackgroundColor,NoteAnnotatePro.currentIndex);
+        }
+        else{ //Global
+            NoteAnnotatePro.saveDataWithIndex('',thisObj.val(),NoteAnnotatePro.defaultFontSize,NoteAnnotatePro.defaultTextColor,NoteAnnotatePro.defaultBackgroundColor,0);
+        }
+
     })
     
+    NoteAnnotatePro.manuallocalUpdate(); //Ensure update
 });
+
+    // browser.storage.local.clear(); //Purge Storage
 
 var NoteAnnotatePro={ //Main Logic
     dataList:[],
 
     home:false,
-    currentURL:null,
+    currentURL:'',
+    currentIndex:0,
+    noteLocal:false,
+
+    defaultFontSize:'1em',
+    defaultTextColor:'black',
+    defaultBackgroundColor:'#ffc',
 
     getCurrentURL:function(windowInfo){
         tabInfo = windowInfo.tabs;
         for (var i = 0; i < windowInfo.tabs.length; i++) { //Search for active tabs
             if(!tabInfo[i].active) continue;
-            this.currentURL = tabInfo[i].url;
+            NoteAnnotatePro.currentURL = NoteAnnotateProHelper.extractHostname(tabInfo[i].url);
             break;
         }
     },
 
-    saveData:function(url,text){ //Empty string is global
-        mainWindow.saveDataWithIndex(url,text,NoteAnnotatePro.dataList.length); //Save data using next index
+    saveData:function(url,text,fontSize,textColor,backgroundColor){ //Empty string is global
+        NoteAnnotatePro.saveDataWithIndex(url,text,fontSize,textColor,backgroundColor,NoteAnnotatePro.dataList.length); //Save data using next index
     },
 
-    saveDataWithIndex:function(url,text){
-        var global=false;
-        if (url==''){
-            global = true;
-        }
-
-        var obj = {url,text}
+    saveDataWithIndex:function(url,text,fontSize,textColor,backgroundColor,index){
+        var obj = {url,text,fontSize,textColor,backgroundColor}
         NoteAnnotatePro.dataList[index] = obj;
 
-        // mainWindow.dataList.sort(function(a,b){ //Sort it
-        //     var textA = a.name.toUpperCase();
-        //     var textB = b.name.toUpperCase();
-
-        //     var textC = a.username.toUpperCase();
-        //     var textD = b.username.toUpperCase();
-        //     if (textA < textB) return -1;
-        //     else if (textA > textB) return 1;
-        //     else if (textC < textD) return -1;
-        //     else if (textC > textD) return 1;
-        //     else return 0;
-        // });
-
-        browser.storage.sync.set({
+        browser.storage.local.set({
             dataList:  NoteAnnotatePro.dataList
         });
 
-        NoteAnnotatePro.manualSyncUpdate();
+        NoteAnnotatePro.manuallocalUpdate();
     },
 
     saveDataAll(){
-        browser.storage.sync.set({
+        browser.storage.local.set({
             dataList:  NoteAnnotatePro.dataList
         });
 
-        NoteAnnotatePro.manualSyncUpdate();
+        NoteAnnotatePro.manuallocalUpdate();
     },
 
     deleteDataByIndex:function(index){
         NoteAnnotatePro.dataList.splice(index,1);
 
-        browser.storage.sync.set({
+        browser.storage.local.set({
             recordList:  NoteAnnotatePro.dataList
         });
 
-        NoteAnnotatePro.manualSyncUpdate();
+        NoteAnnotatePro.manuallocalUpdate();
+    },
+
+    editConfig:function(noteLocal){
+        browser.storage.local.set({
+            noteLocal:  noteLocal
+        });
+
+    },
+
+    manuallocalUpdate:function(){ //Update GUI
+        //Popup Update
+        // console.log (NoteAnnotatePro.currentIndex + " current Index");
+        var list = NoteAnnotatePro.dataList;
+        var isLocal = NoteAnnotatePro.noteLocal;//Global/Local 
+        var noteLocalGlobalInput = $('#popup-setting-bar-input2');
+        var item;
+        if (isLocal){
+            noteLocalGlobalInput.val('  Local : ' + NoteAnnotatePro.currentURL);
+            item = list[NoteAnnotatePro.currentIndex];
+        }
+        else{
+            noteLocalGlobalInput.val('  Global');
+            item = list[0];
+        }
+  
+        $('#popup-text-area').val(item.text);
+
+        //Main Update
+
+    },
+
+    storageChangedListener:function(changes, area) {
+        // console.log('storage changed');
+        // var changedItems = Object.keys(changes);
+       
+        // for (var item of changedItems) {
+        //     mainWindow.recordList = mainWindow.decrpytList(changes[item].newValue);
+        // }
+
+        // mainPageHelper.loadMainPage(mainWindow.recordList);
     },
 
     initialize:function(){
-        NoteAnnotateProHelper.getTabsInfo(this.getCurrentURL);
+        NoteAnnotateProHelper.getTabsInfo(this.getCurrentURL); //Get tab info
+
+        //Load storage area
+        var storageAreaObj = browser.storage.local.get(
+            {
+                //Deafult obj withn index 0, url and text empty                
+                dataList: [{url:"",text:"",fontSize:NoteAnnotatePro.defaultFontSize,textColor:NoteAnnotatePro.defaultTextColor,backgroundColor:NoteAnnotatePro.defaultBackgroundColor}],
+                noteLocal: false
+            }
+        );
+        storageAreaObj.then(function(item){
+            console.log('Loading Storage from local');
+            console.log(item.dataList);
+            console.log(item.noteLocal)
+            if (item){
+
+                NoteAnnotatePro.noteLocal = item.noteLocal;
+
+                //Load the correct note
+                var isFound = false;
+                for (var i=1;i<item.dataList.length;i++){
+                    if (NoteAnnotatePro.currentURL == item.dataList[i].url){
+                        //Matched URL
+                        // console.log('found index' + i);
+                        NoteAnnotatePro.currentIndex = i;
+                        isFound=true;
+                        break;
+                    } 
+                }
+
+                if (!isFound){ //Not found, craete new object
+                    NoteAnnotatePro.currentIndex = item.dataList.length; 
+                    item.dataList[item.dataList.length] = {url:"",text:"",fontSize:NoteAnnotatePro.defaultFontSize,textColor:NoteAnnotatePro.defaultTextColor,backgroundColor:NoteAnnotatePro.defaultBackgroundColor};
+                }
+
+                NoteAnnotatePro.dataList = item.dataList;
+            }
+        
+            NoteAnnotatePro.manuallocalUpdate(); //UPDATE GUI
+            browser.storage.onChanged.addListener(NoteAnnotatePro.storageChangedListener);
+        },
+        function(error){
+            console.log(error);
+        });
+
     }
 }
 
@@ -164,6 +285,8 @@ var NoteAnnotateProHelper={ //Collection of Helper functions
     
         return hostname;
     },
+
+
 }
 
 

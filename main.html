@@ -1,13 +1,13 @@
 <html>
 
-<head>
+    <head>
     <link rel="stylesheet" href="background.css">
     <link rel="stylesheet" href="/icon/font-awesome-4.7.0/css/font-awesome.min.css">
     <script src="/script/jquery-3.2.1.min.js"></script>
     <script src="/script/main.js"></script>
 
     <title>Notes Annotate</title>
-
+    </head>
     <body>
         <div class="popup-content">
             <div>
@@ -15,18 +15,18 @@
                 <div class="popup-setting-bar">
                     <!--Top Bar-->
                     <span id="popup-setting-bar-home" class="popup-setting-bar-home">
-                            <i class="fa fa-home"></i>
+                        <i class="fa fa-home"></i>
                     </span>
                     <span id="popup-setting-bar-input" class="popup-setting-bar-input">
-                        <input style="width:100%"></input>
+                        <input id="popup-setting-bar-input2" class="popup-setting-bar-input2 unselectable" style="width:100%" readonly data-target="global" value="  Global"></input>
                     </span>
                     <span id="popup-setting-bar-btn" class="popup-setting-bar-btn">
-                            <i class="fa fa-gear"></i>
+                        <i class="fa fa-gear"></i>
                     </span>
                 </div>
                 <div>
                     <!--Text Area-->
-                    <textarea id="popup-text-area" class="popup-text-area" id="txt"></textarea>
+                    <textarea id="popup-text-area" class="popup-text-area" id="txt" placeholder="Click to type your text here..." autofocus></textarea>
                 </div>
             </div>
             <div class="popup-setting-main">
@@ -124,5 +124,4 @@
             </div>
         </div>
     </body>
-
 </html>
