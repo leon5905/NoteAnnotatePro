@@ -1,13 +1,62 @@
-html,body{height:100%;}
+/* html,body{height:100%;} */
+@font-face {
+    font-family: 'AmaticSC';
+    src: url('/fonts/Amatic_SC/AmaticSC-Regular.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
 
-.popup-text-area{
-    min-width:300px;
-    min-height: 400px;
-    font-family:Arial;
-    font-size:100%;
-    background:#ffc;
-    margin:5px;
-    
+@font-face{
+    font-family: "Anton";
+    src: url('/fonts/Anton/Anton-Regular.ttf') format('truetype');
+}
+
+@font-face{
+    font-family: "CabinSketch";
+    src: url('/fonts/Cabin_Sketch/CabinSketch-Regular.ttf') format('truetype');
+}
+
+@font-face{
+    font-family: "GloriaHallelujah";
+    src: url('/fonts/Gloria_Hallelujah/GloriaHallelujah.ttf') format('truetype');
+}
+
+@font-face{
+    font-family: "LibreBarcode";
+    src: url('/fonts/Libre_Barcode_39_Text/LibreBarcode39Text-Regular.ttf') format('truetype');
+}
+
+@font-face{
+    font-family: "Lobster";
+    src: url('/fonts/Lobster/Lobster-Regular.ttf') format('truetype');
+}
+
+@font-face{
+    font-family: "Monoton";
+    src: url('/fonts/Monoton/Monoton-Regular.ttf') format('truetype');
+}
+
+@font-face{
+    font-family: "PressStart";
+    src: url('/fonts/Press_Start_2P/PressStart2P-Regular.ttf') format('truetype');
+}
+
+@font-face{
+    font-family: "SpectralSC";
+    src: url('/fonts/Spectral_SC/SpectralSC-Regular.ttf') format('truetype');
+}
+
+@font-face{
+    font-family: "VT323";
+    src: url('/fonts/VT323/VT323-Regular.ttf') format('truetype');
+}
+
+input, textarea {font-family: inherit}
+
+.main-page{
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
 }
 
 .popup-content{
@@ -16,30 +65,95 @@ html,body{height:100%;}
     font-family:Arial;
     font-size:100%;
     background:#ffc;
-    
+    height:100%;
+    width:100%;
+    display:none;
+    /* position: absolute;
+    top:0;
+    left:0; */
 }
 
+.popup-text-area{
+    min-width:500px;
+    min-height: 500px;
+    width:calc(100% - 5px);
+    /* font-family:Arial; */
+    font-size:15px;
+    background:transparent;
+    padding:10px 5px 5px 5px;
+    border:none;
+}
+
+
+
 .popup-setting-main{
-    display:absolute;
+    position:absolute;
     top:0;
+    left:0;
+    width:100%;
+    height: 100%;
+    display:flex;
+    vertical-align: middle;
+    background: rgba(0,0,0,0.5);
 }
 
 .popup-setting{
     display:block;
-    margin:25px;
-    width:60%;
-    height:100px;
+    width:80%;
     background:white;
-    float:right;
+}
+
+.popup-setting-window{
+    margin:auto;
+}
+
+.popup-setting-row{
+    cursor:pointer;
+}
+
+.popup-setting-row:hover > div {
+    background-color:rgba(0, 0, 0, 0.15);
+}
+
+.popup-setting-row.active{
+    background-color:gold;
+}
+
+.popup-setting-entry{
+    cursor:pointer;
+    width: 100%;
+    font-size: 25px;
+    display:flex;
+    padding:5px;
+    align-items: center;
+}
+
+.popup-setting-icon-label{
+    cursor:pointer;
+    font-size: 20px;
+    margin-left: 10px;
 }
 
 .popup-setting-bar{
     display:flex;
     align-items: center;
+    background:#303030;
+    filter:drop-shadow(0px 3px 3px gray);
 }
 
 .popup-setting-bar-input{
     width:100%;
+    border-radius: 2px;
+}
+
+.popup-setting-bar-input2{
+    width:100%;
+    height:22px;
+    border-radius: 2px;
+    border-color: transparent;
+    background-color: whitesmoke;
+    text-overflow: ellipsis;
+    cursor:pointer;
 }
 
 .popup-setting-bar-home{
@@ -48,6 +162,8 @@ html,body{height:100%;}
     margin:4px;
     width:25px;
     height:25px;
+    color:whitesmoke;
+    cursor:pointer;
 }
 
 .popup-setting-bar-btn{
@@ -56,6 +172,8 @@ html,body{height:100%;}
     margin:4px;
     width:25px;
     height:25px;
+    color:whitesmoke;
+    cursor:pointer;
 }
 
 .popup-fontsize{
@@ -103,4 +221,21 @@ html,body{height:100%;}
     background:white;
     float:right;
 
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.dropshadow-word{
+    filter:drop-shadow(0px 0px 2px black);
+}
+
+.dropshadow-window{
+    filter:drop-shadow(5px 5px 10px black)
 }
