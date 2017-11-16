@@ -6,9 +6,9 @@
   "icons": {
     "48": "/icon/note icon.ico"
   },
-  "chrome_url_overrides": {
-    "newtab": "main.html?home=true"
-  },
+  // "chrome_url_overrides": { //Only for testing
+  //   "newtab": "main.html?home=true"
+  // },
   "browser_action": {
     "browser_style": true,
     "default_icon": {
@@ -20,7 +20,7 @@
   },
   "applications": {
     "gecko": {
-      "id": "himkeat@gmail.com",
+      "id": "himkeat@gmail.com", //Used for storage
       "strict_min_version": "1.0"
     }
   },
