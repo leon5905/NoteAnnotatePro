@@ -20,37 +20,50 @@
 $(document).ready(function () {
     // console.log('ready');
     var queryBool = $.QueryString.home;
+    // queryBool=false;
     if (queryBool) {
         NoteAnnotatePro.home = true;
         // console.log($('#popup-content'));
-        $('#popup-content').hide();      
+        // $('#popup-content').hide();      
 
         var inputField = $('#main-page-search-input');
         inputField.on('input',function(){
-            
+            NoteAnnotatePro.searchFunction($(this).val());
         });
 
+        particlesJS.load('particles-js', 'assets/particle.json', function() {
+            console.log('callback - particles.js config loaded');
+        });
+
+        // //Clean up record
+        // var list = NoteAnnotatePro.dataList;
+        // var isClean = false;
+        // console.log(list);
+        // for (var i=list.length-1;i>0;i--){
+        //     var item = list[i];
+        //     if (item.text==''){
+        //         NoteAnnotatePro.dataList.splice(i,1); //Clean up record
+        //         isClean=true;
+        //     }
+        // }
+        // if (isClean){
+        //     NoteAnnotatePro.saveDataRefresh();
+        // }
 
     }
     else{
         $('#main-page').hide();
         $('#popup-content').show();    
+        $('#particles-js').hide();
     }
 
-    var settingBtn = $('#popup-setting-bar-btn');
-    settingBtn.click(function(){
-        //TODO 
-    });
-    settingBtn.hover(function () {
-        settingBtn.css('color','gainsboro');
-    }, function () {
-        settingBtn.css('color', 'whitesmoke');
-    });
+    var popupbody = $('#popup-content');
+    popupbody.css('z-index','1');
 
     var homeBtn = $('#popup-setting-bar-home');
-    homeBtn.click(function(){
+    homeBtn.click(function () {
         //TODO open new window
-        var win = window.open();
+        var win = window.open('/main.html?home=true');
     });
     homeBtn.hover(function () {
         homeBtn.css('color', 'gainsboro');
@@ -94,6 +107,8 @@ $(document).ready(function () {
     $('#popup-text-area').change(function () {
         var thisObj = $(this);
         var updatedValue = thisObj.val();
+
+        // alert('INdex: '+  NoteAnnotatePro.currentIndex + ", val:" + updatedValue + ', ' + NoteAnnotatePro.defaultBackgroundColor);
 
         //Save data on change
         if (NoteAnnotatePro.noteLocal) { //Local
@@ -214,26 +229,72 @@ $(document).ready(function () {
         });
     });
 
-    NoteAnnotatePro.manuallocalUpdate(); //Ensure update
+    //Style Popupcontent correctly
+    //Home Popup
+    if (queryBool){
+        var popupcontentmain = $('#popup-content-div');
+        popupcontentmain.css('position','absolute');
+        popupcontentmain.css('top','0');
+        popupcontentmain.css('left','0');
+        popupcontentmain.css('width','100%');
+        popupcontentmain.css('height','100%');
+        popupcontentmain.css('background','rgba(0,0,0,0.5)');
+        popupcontentmain.hide();
+        popupcontentmain.click(function(){
+            var thisobj = $(this);
+            thisobj.hide();
+            $('#popup-text-area').change();
+        })
+
+        var popupbody = popupcontentmain.find('#popup-content');
+        console.log(popupbody);
+        popupbody.click(function(e){
+            e.stopPropagation();
+        })
+        popupbody.css('margin','auto');
+        popupbody.find('#popup-setting-bar-input2').unbind('click mouseenter mouseleave');
+        popupbody.find('#popup-setting-bar-input2').css('cursor','default');
+        popupbody.find('#popup-setting-bar-input').css('cursor','default');
+        popupbody.find('.popup-setting').css('width','40%');
+        var homeBtn = popupbody.find('#popup-setting-bar-home');
+        homeBtn.unbind('click');
+        homeBtn.click(function(){
+            popupcontentmain.hide();
+            $('#popup-text-area').change();
+        });
+        popupbody.css('width','75%');
+        popupbody.css('height','75%');
+        popupbody.css('z-index','1000');
+
+        $('#popup-text-area').css('min-height','10px');
+        $('#popup-text-area').css('min-width','0px');
+        $('#popup-text-area').css('height','calc(100% - 40px)');
+        $('#popup-text-area').css('resize','none');
+        var popupcontentmin = $('#popup-content');
+        popupcontentmin.css('min-height','0px');
+        popupcontentmin.css('min-width','0px');
+
+    }
+
+
+    if (NoteAnnotatePro.loaded)
+        NoteAnnotatePro.manuallocalUpdate(); //Ensure update
 });
-// browser.storage.local.clear(); //Purge Storage
+// browser.storage.local.clear()    ; //Purge Storage
 
 var NoteAnnotatePro = { //Main Logic
     dataList: [],
 
-    // browser.storage.local.clear(); //Purge Storage
+    loaded:false,
+    home: false,
+    currentURL: '',
+    currentIndex: 0,
+    noteLocal: false,
 
-var NoteAnnotatePro={ //Main Logic
-    dataList:[],
-
-    home:false,
-    currentURL:'',
-    currentIndex:0,
-    noteLocal:false,
-
-    defaultFontSize:'1em',
-    defaultTextColor:'black',
-    defaultBackgroundColor:'#ffc',
+    defaultFontSize: '15px',
+    defaultTextColor: 'black',
+    defaultBackgroundColor: '#ffc',
+    defaultFontFamily: 'Arial',
 
     getCurrentURL: function (windowInfo) {
         tabInfo = windowInfo.tabs;
@@ -250,6 +311,7 @@ var NoteAnnotatePro={ //Main Logic
 
     saveDataWithIndex: function (url, text, fontSize, textColor, backgroundColor, fontFamily, index) {
         // alert('saveDataWithIndex ' + fontSize);
+        // console.log (url + ' ' + text + ' ' + fontSize + ' ' + textColor + ' ' + backgroundColor + ' ' + fontFamily + ' ' + index + ' ' )
         var obj = { url, text, fontSize, textColor, backgroundColor, fontFamily }
         NoteAnnotatePro.dataList[index] = obj;
 
@@ -280,6 +342,12 @@ var NoteAnnotatePro={ //Main Logic
         // NoteAnnotatePro.manuallocalUpdate();
     },
 
+    saveDataRefresh(){ //Save all data 
+        browser.storage.local.set({
+            dataList: NoteAnnotatePro.dataList
+        });
+    },
+
     deleteDataByIndex: function (index) {
         NoteAnnotatePro.dataList.splice(index, 1);
 
@@ -294,6 +362,7 @@ var NoteAnnotatePro={ //Main Logic
         browser.storage.local.set({
             noteLocal: noteLocal
         });
+
     },
 
     manuallocalUpdate: function () { //Update GUI
@@ -302,7 +371,7 @@ var NoteAnnotatePro={ //Main Logic
         var list = NoteAnnotatePro.dataList;
         var isLocal = NoteAnnotatePro.noteLocal;//Global/Local 
         var noteLocalGlobalInput = $('#popup-setting-bar-input2');
-        var item;
+        var item = list[0];
         if (isLocal) {
             noteLocalGlobalInput.val('  Local : ' + NoteAnnotatePro.currentURL);
             item = list[NoteAnnotatePro.currentIndex];
@@ -311,6 +380,9 @@ var NoteAnnotatePro={ //Main Logic
             noteLocalGlobalInput.val('  Global');
             item = list[0];
         }
+
+        if (!item)
+            item= { url: '~/Home', text: "", fontSize: '15px', textColor: 'black', backgroundColor: '#ffc', fontFamily: 'Arial'};
 
         //Update Appearance
         var textArea = $('#popup-text-area');
@@ -375,15 +447,133 @@ var NoteAnnotatePro={ //Main Logic
         });
 
         //If Home page is true
+        // console.log('Home ' + NoteAnnotatePro.home);
         if (NoteAnnotatePro.home){
-            //Update homepage note appeareance
-            var list = NoteAnnotatePro.dataList;
-
-            for (var i=0;i<list.length;i++){
-                
-            }
+            NoteAnnotatePro.searchFunction($('#main-page-search-input').val());
         }
 
+    },
+
+    searchFunction:function(parameter){
+        // console.log('Updating home page from new data');
+        //Update homepage note appeareance
+        var list = NoteAnnotatePro.dataList;
+        // console.log(list);
+        // console.log(list.length);
+        var topContainer= $('#main-page-note-area');
+        var sampleRow = $('#main-page-note-row-sample');
+        sampleRow =sampleRow.clone();
+        sampleRow.css('position','');
+        sampleRow.css('top','');
+        var sampleColumn = $('#main-page-note-sample');
+        sampleColumn = sampleColumn.clone();
+        // sampleColumn.css('z-index',)
+        sampleRow.empty();
+
+        topContainer.empty();
+
+        var currentParameterRegExp = new RegExp(parameter.trim(),'i');
+        var currentRow = null;
+        var count=0;
+        var isEmpty = (parameter.trim() == '');
+        if (!parameter){
+            isEmpty =true;
+        }
+        
+        for (var i=0;i<list.length;i++){
+            var item = list[i];
+
+            if (!isEmpty && !currentParameterRegExp.test(item.text.trim()))
+                continue;
+        
+            if (count%5==0){
+                currentRow = sampleRow.clone();
+                topContainer.append(currentRow);
+            }
+
+            var newNote = sampleColumn.clone();
+            var newNoteDiv = newNote.find('.main-page-note-display-div');
+            newNoteDiv.click(function(){
+                //Home note click
+                var popupcontentmain = $('#popup-content-div');
+                popupcontentmain.show();
+                var popupbody = popupcontentmain.find('#popup-content');
+
+                popupbody.css('display','block');
+                var dataIndex= $(this).parent().attr('data-index');
+                if (dataIndex == '0'){
+                    NoteAnnotatePro.noteLocal = false;
+                }
+                else{
+                    NoteAnnotatePro.noteLocal = true;
+                }   
+
+                NoteAnnotatePro.currentIndex = dataIndex;
+                NoteAnnotatePro.currentURL = NoteAnnotatePro.dataList[dataIndex].url;
+                NoteAnnotatePro.manuallocalUpdate();
+
+            })
+            var newNoteLabel = newNote.find('.main-page-note-label');
+            newNote.attr('data-index',i);
+            newNoteDiv.css('background-color',item.backgroundColor);
+            newNoteLabel.text(item.text);
+            newNoteLabel.css('color',item.textColor);
+            newNoteLabel.css('font-family',item.fontFamily);
+            newNoteLabel.css('font-size',item.fontSize);
+            currentRow.append(newNote);
+            count++;
+        }
+
+        if (isEmpty){ //If serach parameter empty, add new note capability
+            sampleColumn =$('#main-page-add-note-sample').clone(); 
+            sampleColumn.css('position','');
+            sampleColumn.css('top','');
+
+            if (count%5==0){
+                currentRow = sampleRow.clone();
+                topContainer.append(currentRow);
+            }
+
+            var newNote = sampleColumn.clone();
+            var newNoteDiv = newNote.find('.main-page-note-display-div');
+            newNoteDiv.click(function(){
+                //Home note click
+                var popupcontentmain = $('#popup-content-div');
+                popupcontentmain.show();
+                var popupbody = popupcontentmain.find('#popup-content');
+
+                popupbody.css('display','block');
+                var dataIndex= $(this).parent().attr('data-index');
+                if (dataIndex == '0'){
+                    NoteAnnotatePro.noteLocal = false;
+                }
+                else{
+                    NoteAnnotatePro.noteLocal = true;
+                }   
+
+                NoteAnnotatePro.currentIndex = dataIndex;
+                NoteAnnotatePro.currentURL = '~/Home'
+                NoteAnnotatePro.dataList.push({ url: '~/Home', text: "", fontSize: '15px', textColor: 'black', backgroundColor: '#ffc', fontFamily: 'Arial'});
+                NoteAnnotatePro.manuallocalUpdate();
+            })
+            var newNoteLabel = newNote.find('.main-page-note-label');
+            newNote.attr('data-index',NoteAnnotatePro.dataList.length);
+            newNoteDiv.css('background-color','#ffc');
+            newNoteLabel.css('color','black');
+            newNoteLabel.css('font-family','#ffc');
+            newNoteLabel.click(function(){
+                return true;
+            });
+            currentRow.append(newNote);
+            count++;
+        }
+
+        if (count==0){
+            $('#main-page-nocontent-search').css('display','flex');
+        }
+        else{
+            $('#main-page-nocontent-search').css('display','none');
+        }
     },
 
     storageChangedListener: function (changes, area) {
@@ -395,6 +585,24 @@ var NoteAnnotatePro={ //Main Logic
                 NoteAnnotatePro.dataList = changes[item].newValue;
             else if (item == 'noteLocal') {
                 NoteAnnotatePro.noteLocal = changes[item].newValue;
+            }
+        }
+
+        if (NoteAnnotatePro.home){//Clean up record //Remove Record //Clear Record
+            var list = NoteAnnotatePro.dataList;
+            var isClean = false;
+            // console.log(list);
+            for (var i=list.length-1;i>0;i--){
+                var item = list[i];
+                if (item.text==''){
+                    NoteAnnotatePro.dataList.splice(i,1); 
+                    isClean=true;
+                }
+            }
+            if (isClean){
+                // console.log(isClean + ' = isclean' );
+                NoteAnnotatePro.saveDataRefresh();
+                return;
             }
         }
 
@@ -410,36 +618,35 @@ var NoteAnnotatePro={ //Main Logic
         var storageAreaObj = browser.storage.local.get(
             {
                 //Deafult obj withn index 0, url and text empty                
-                dataList: [{url:"",text:"",fontSize:NoteAnnotatePro.defaultFontSize,textColor:NoteAnnotatePro.defaultTextColor,backgroundColor:NoteAnnotatePro.defaultBackgroundColor}],
+                dataList: [{ url: "", text: "", fontSize: NoteAnnotatePro.defaultFontSize, textColor: NoteAnnotatePro.defaultTextColor, backgroundColor: NoteAnnotatePro.defaultBackgroundColor, fontFamily: NoteAnnotatePro.defaultFontFamily }],
                 noteLocal: false
             }
         );
-        storageAreaObj.then(function(item){
-            console.log('Loading Storage from local');
-            console.log(item.dataList);
-            console.log(item.noteLocal)
-            if (item){
+        storageAreaObj.then(function (item) {
+            NoteAnnotatePro.loaded=true;
+
+            if (item) {
                 NoteAnnotatePro.noteLocal = item.noteLocal;
 
                 //Load the correct note
                 var isFound = false;
-
-                for (var i=1;i<item.dataList.length;i++){
-                    if (NoteAnnotatePro.currentURL == item.dataList[i].url){
+                for (var i = 1; i < item.dataList.length; i++) {
+                    if (NoteAnnotatePro.currentURL == item.dataList[i].url) {
                         //Matched URL
                         // console.log('found index' + i);
                         NoteAnnotatePro.currentIndex = i;
-                        isFound=true;
+                        isFound = true;
                         break;
-                    } 
+                    }
                 }
 
-                if (!isFound){ //Not found, craete new object
-                    NoteAnnotatePro.currentIndex = item.dataList.length; 
-                    item.dataList[item.dataList.length] = {url:"",text:"",fontSize:NoteAnnotatePro.defaultFontSize,textColor:NoteAnnotatePro.defaultTextColor,backgroundColor:NoteAnnotatePro.defaultBackgroundColor};
+                if (!isFound && !NoteAnnotatePro.home) { //Not found, craete new object
+                    NoteAnnotatePro.currentIndex = item.dataList.length;
+                    item.dataList[item.dataList.length] = { url: NoteAnnotatePro.currentURL, text: "", fontSize: NoteAnnotatePro.defaultFontSize, textColor: NoteAnnotatePro.defaultTextColor, backgroundColor: NoteAnnotatePro.defaultBackgroundColor, fontFamily: NoteAnnotatePro.defaultFontFamily };
                 }
 
                 NoteAnnotatePro.dataList = item.dataList;
+                // console.log(NoteAnnotatePro.dataList);
             }
 
             NoteAnnotatePro.manuallocalUpdate(); //UPDATE GUI
@@ -506,6 +713,12 @@ var NoteAnnotateProHelper = { //Collection of Helper functions
     },
 
 
+}
+
+var queryBool = $.QueryString.home;
+// queryBool=false;
+if (queryBool) {
+    NoteAnnotatePro.home = true;
 }
 
 NoteAnnotatePro.initialize(); //Initialize the variable
