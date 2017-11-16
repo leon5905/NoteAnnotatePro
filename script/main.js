@@ -37,8 +37,18 @@ $(document).ready(function () {
         $('#popup-content').show();    
     }
 
+    var settingBtn = $('#popup-setting-bar-btn');
+    settingBtn.click(function(){
+        //TODO 
+    });
+    settingBtn.hover(function () {
+        settingBtn.css('color','gainsboro');
+    }, function () {
+        settingBtn.css('color', 'whitesmoke');
+    });
+
     var homeBtn = $('#popup-setting-bar-home');
-    homeBtn.click(function () {
+    homeBtn.click(function(){
         //TODO open new window
         var win = window.open();
     });
@@ -211,15 +221,19 @@ $(document).ready(function () {
 var NoteAnnotatePro = { //Main Logic
     dataList: [],
 
-    home: false,
-    currentURL: '',
-    currentIndex: 0,
-    noteLocal: false,
+    // browser.storage.local.clear(); //Purge Storage
 
-    defaultFontSize: '15px',
-    defaultTextColor: 'black',
-    defaultBackgroundColor: '#ffc',
-    defaultFontFamily: 'Arial',
+var NoteAnnotatePro={ //Main Logic
+    dataList:[],
+
+    home:false,
+    currentURL:'',
+    currentIndex:0,
+    noteLocal:false,
+
+    defaultFontSize:'1em',
+    defaultTextColor:'black',
+    defaultBackgroundColor:'#ffc',
 
     getCurrentURL: function (windowInfo) {
         tabInfo = windowInfo.tabs;
@@ -280,7 +294,6 @@ var NoteAnnotatePro = { //Main Logic
         browser.storage.local.set({
             noteLocal: noteLocal
         });
-
     },
 
     manuallocalUpdate: function () { //Update GUI
@@ -397,29 +410,33 @@ var NoteAnnotatePro = { //Main Logic
         var storageAreaObj = browser.storage.local.get(
             {
                 //Deafult obj withn index 0, url and text empty                
-                dataList: [{ url: "", text: "", fontSize: NoteAnnotatePro.defaultFontSize, textColor: NoteAnnotatePro.defaultTextColor, backgroundColor: NoteAnnotatePro.defaultBackgroundColor, fontFamily: NoteAnnotatePro.defaultFontFamily }],
+                dataList: [{url:"",text:"",fontSize:NoteAnnotatePro.defaultFontSize,textColor:NoteAnnotatePro.defaultTextColor,backgroundColor:NoteAnnotatePro.defaultBackgroundColor}],
                 noteLocal: false
             }
         );
-        storageAreaObj.then(function (item) {
-            if (item) {
+        storageAreaObj.then(function(item){
+            console.log('Loading Storage from local');
+            console.log(item.dataList);
+            console.log(item.noteLocal)
+            if (item){
                 NoteAnnotatePro.noteLocal = item.noteLocal;
 
                 //Load the correct note
                 var isFound = false;
-                for (var i = 1; i < item.dataList.length; i++) {
-                    if (NoteAnnotatePro.currentURL == item.dataList[i].url) {
+
+                for (var i=1;i<item.dataList.length;i++){
+                    if (NoteAnnotatePro.currentURL == item.dataList[i].url){
                         //Matched URL
                         // console.log('found index' + i);
                         NoteAnnotatePro.currentIndex = i;
-                        isFound = true;
+                        isFound=true;
                         break;
-                    }
+                    } 
                 }
 
-                if (!isFound) { //Not found, craete new object
-                    NoteAnnotatePro.currentIndex = item.dataList.length;
-                    item.dataList[item.dataList.length] = { url: NoteAnnotatePro.currentURL, text: "", fontSize: NoteAnnotatePro.defaultFontSize, textColor: NoteAnnotatePro.defaultTextColor, backgroundColor: NoteAnnotatePro.defaultBackgroundColor, fontFamily: NoteAnnotatePro.defaultFontFamily };
+                if (!isFound){ //Not found, craete new object
+                    NoteAnnotatePro.currentIndex = item.dataList.length; 
+                    item.dataList[item.dataList.length] = {url:"",text:"",fontSize:NoteAnnotatePro.defaultFontSize,textColor:NoteAnnotatePro.defaultTextColor,backgroundColor:NoteAnnotatePro.defaultBackgroundColor};
                 }
 
                 NoteAnnotatePro.dataList = item.dataList;

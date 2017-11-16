@@ -230,8 +230,7 @@ input, textarea {font-family: inherit}
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
-
+  
 .dropshadow-word{
     filter:drop-shadow(0px 0px 2px black);
 }
