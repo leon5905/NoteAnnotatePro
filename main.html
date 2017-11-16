@@ -7,121 +7,258 @@
     <script src="/script/main.js"></script>
 
     <title>Notes Annotate</title>
-    </head>
-    <body>
-        <div class="popup-content">
-            <div>
-                <!--Top Bar + Text Area-->
-                <div class="popup-setting-bar">
-                    <!--Top Bar-->
-                    <span id="popup-setting-bar-home" class="popup-setting-bar-home">
-                        <i class="fa fa-home"></i>
-                    </span>
-                    <span id="popup-setting-bar-input" class="popup-setting-bar-input">
-                        <input id="popup-setting-bar-input2" class="popup-setting-bar-input2 unselectable" style="width:100%" readonly data-target="global" value="  Global"></input>
-                    </span>
-                    <span id="popup-setting-bar-btn" class="popup-setting-bar-btn">
-                        <i class="fa fa-gear"></i>
-                    </span>
-                </div>
-                <div>
-                    <!--Text Area-->
-                    <textarea id="popup-text-area" class="popup-text-area" id="txt" placeholder="Click to type your text here..." autofocus></textarea>
-                </div>
+
+</head>
+
+<body>
+
+    <div id="popup-content" class="popup-content">
+        <div>
+            <!--Top Bar + Text Area-->
+            <div class="popup-setting-bar">
+                <!--Top Bar-->
+                <span id="popup-setting-bar-home" class="popup-setting-bar-home">
+                    <i class="fa fa-home"></i>
+                </span>
+                <span id="popup-setting-bar-input" class="popup-setting-bar-input">
+                    <input id="popup-setting-bar-input2" class="popup-setting-bar-input2 unselectable" style="width:100%" readonly data-target="global"
+                        value="  Global"></input>
+                </span>
+                <span id="popup-setting-bar-btn" class="popup-setting-bar-btn">
+                    <i class="fa fa-gear"></i>
+                </span>
             </div>
-            <div class="popup-setting-main">
-                <!--Setting Windows-->
-                <!-- <div class="popup-setting">
-                    <div>
-                        <label>Change Font Size</label>
-                    </div>
-                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                    <div>
-                        <label>Change Text Color</label>
-                    </div>
-                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                    <div>
-                        <label>Change Background Color</label>
-                    </div>
-                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                    <div>
-                        <label>Change Text Style</label>
-                    </div>
-                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                    <div>
-                        <label>Export as.txt file</label>
-                    </div>
-                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-
-                </div> -->
-
-
-                <!-- <div class="popup-fontsize">
-                        <div><label>Small</label> </div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        <div><label>Medium</label> </div> 
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>                   
-                        <div><label>Large</label> </div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        <div><label>Extra Large</label></div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        <div><label>Giant Large</label></div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        
-                 </div> -->
-
-                <!-- <div class="popup-textcolor">
-                        <div><label>Black</label> </div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        <div><label>Yellow</label> </div> 
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>                   
-                        <div><label>Red</label> </div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        <div><label>Blue</label></div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        <div><label>Green</label></div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        
-                 </div> -->
-
-                <!-- <div class="popup-backgroundcolor">
-                        <div><label>White</label> </div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        <div><label>Yellow</label> </div> 
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>                   
-                        <div><label>Red</label> </div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        <div><label>Blue</label></div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        <div><label>Green</label></div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        
-                 </div> -->
-
-                <!-- <div class="popup-textstyle">
-                        <div><label>Arial</label> </div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        <div><label>Kalam</label> </div> 
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>                   
-                        <div><label>Comic</label> </div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        <div><label>Helvetica</label></div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        <div><label>FreeStyle</label></div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        
-                 </div> -->
-
-                <!-- <div class="popup-export">
-                        <div><label>Notes.txt</label> </div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-                        <div><label>Notes_(Date).txt</label> </div> 
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>                   
-                        <div><label>xxxx_(URL).txt</label> </div>
-                        <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
-   
-                 </div> -->
+            <div>
+                <!--Text Area-->
+                <textarea id="popup-text-area" class="popup-text-area" id="txt" placeholder="Click to type your text here..." autofocus></textarea>
             </div>
         </div>
-    </body>
+        <div id="popup-setting-main" class="popup-setting-main" style="display:none">
+            <!--Setting Windows-->
+            <div id="popup-setting-main-window" class="popup-setting popup-setting-window dropshadow-window">
+                <div id="popup-setting-font-family" class="popup-setting-row">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-font popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Font-Family</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div id="popup-setting-font-size" class="popup-setting-row">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-text-height popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Font Size</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div id="popup-setting-text-color" class="popup-setting-row">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-adn popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Text Color</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div id="popup-setting-background-color" class="popup-setting-row">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-adjust popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Background</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div id="popup-setting-download-txt" class="popup-setting-row">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-file popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Export .txt File</label>
+                    </div>
+                    <!-- <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div> -->
+
+                </div>
+            </div>
+
+            <!--Font Family Setting Window-->
+            <div id='popup-setting-fontfamily-window' class="popup-setting popup-setting-window dropshadow-window">
+                <div class="popup-setting-row" style="font-family:Arial">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-font popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Arial</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" style="font-family:SpectralSC">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-font popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">SpectralSC</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" style="font-family:AmaticSC">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-font popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">AmaticSC</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" style="font-family:CabinSketch">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-font popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">CabinSketch</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" style="font-family:GloriaHallelujah">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-font popup-s etting-icon"></i>
+                        <label class="popup-setting-icon-label">Gloria Hallelujah</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" style="font-family:LibreBarcode">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-font popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Libre Barcode</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" style="font-family:Lobster">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-font popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Lobster</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" style="font-family:Monoton">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-font popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Monoton</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" style="font-family:VT323">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-font popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">VT323</label>
+                    </div>
+                    <!-- <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div> -->
+                </div>
+            </div>
+
+            <!--Font Size Setting Window-->
+            <div id="popup-setting-fontsize-window" class="popup-setting popup-setting-window dropshadow-window">
+                <div class="popup-setting-row" data-fontsize="10px">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-text-height popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label" style="font-size:10px">Very Small</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" data-fontsize="12px">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-text-height popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label" style="font-size:12px">Small</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" data-fontsize="15px">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-text-height popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label" style="font-size:15px">Normal</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" data-fontsize="20px">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-text-height popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label" style="font-size:20px">Large</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div id="popup-fontsize-verylarge" class="popup-setting-row" data-fontsize="25px">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-text-height popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label" style="font-size:25px">Very Large</label>
+                    </div>
+                    <!-- <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div> -->
+                </div>
+            </div>
+
+            <!--Text Color Setting Window-->
+            <div id='popup-setting-textcolor-window' class="popup-setting popup-setting-window dropshadow-window">
+                <div class="popup-setting-row" style="color:black">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-adn popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Shadowy Black</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" style="color:grey">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-adn popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Inclement Grey</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" style="color:darkslateblue">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-adn popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Purple Nightmare</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" style="color:rgb(244,164,96)">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-adn popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Sandy Brown</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" style="color:whitesmoke">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-adn popup-setting-icon dropshadow-word"></i>
+                        <label class="popup-setting-icon-label dropshadow-word">White Smoke</label>
+                    </div>
+                    <!-- <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div> -->
+                </div>
+            </div>
+
+            <!--Background Color Setting Window-->
+            <div id='popup-setting-backgroundcolor-window' class="popup-setting popup-setting-window dropshadow-window">
+                <div class="popup-setting-row" style="background-color:#ffc">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-adjust popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Classic Yellow</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" style="background-color:gold">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-adjust popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Golden Orange</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" style="background-color:#DC143C">
+                    <div class="popup-setting-entry">
+                        <i class="fa fa-adjust popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Crimson Scarlet</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" style="background-color:midnightblue">
+                    <div class="popup-setting-entry" style="color:whitesmoke">
+                        <i class="fa fa-adjust popup-setting-icon"></i>
+                        <label class="popup-setting-icon-label">Midnight Azure</label>
+                    </div>
+                    <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div>
+                </div>
+                <div class="popup-setting-row" style="background-color:#222">
+                    <div class="popup-setting-entry" style="color:whitesmoke">
+                        <i class="fa fa-adjust popup-setting-icon dropshadow-word"></i>
+                        <label class="popup-setting-icon-label dropshadow-word">Towery Black</label>
+                    </div>
+                    <!-- <div style="height:1px;width:100%;background:rgb(238, 234, 234)"></div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
 </html>
